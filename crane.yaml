@@ -2,7 +2,7 @@
 containers:
 
   puppetdb:
-    image: iverberk/puppetdb:packer
+    image: spoofedpacket/puppetdb:packer
     run:
       dns: ["172.17.42.1", "8.8.8.8", "8.8.4.4"]
       detach: true
@@ -13,14 +13,14 @@ containers:
       hostname: puppetdb.localdomain
 
   puppetdb_datastore:
-    image: iverberk/puppetdb:packer
+    image: spoofedpacket/puppetdb:packer
     run:
       volume: ["/var/lib/pgsql/data"]
       cmd: ["true"]
       detach: true
 
   foreman:
-    image: iverberk/foreman:packer
+    image: spoofedpacket/foreman:packer
     run:
       dns: ["172.17.42.1", "8.8.8.8", "8.8.4.4"]
       volumes-from: ["foreman_datastore"]
@@ -30,14 +30,14 @@ containers:
       detach: true
 
   foreman_datastore:
-    image: iverberk/foreman:packer
+    image: spoofedpacket/foreman:packer
     run:
       volume: ["/var/lib/pgsql/data"]
       cmd: ["true"]
       detach: true
 
   puppetmaster:
-    image: iverberk/puppetmaster:packer
+    image: spoofedpacket/puppetmaster:packer
     run:
       dns: ["172.17.42.1", "8.8.8.8", "8.8.4.4"]
       volume: ["./environments:/etc/puppet/environments", "./hiera:/etc/puppet/hiera"]
@@ -49,7 +49,7 @@ containers:
       publish: ["8140:8140"]
 
   puppetmaster_datastore:
-    image: iverberk/puppetmaster:packer
+    image: spoofedpacket/puppetmaster:packer
     run:
       volume: ["/var/lib/puppet/ssl"]
       cmd: ["true"]
